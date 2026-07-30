@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G05 Hummingbird Feeder</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #fff8e1 50%, #e3f2fd 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.8;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #2e7d32;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .hero .subtitle { font-size: 1.1rem; color: #666; margin-bottom: 30px; }
+        .product-image {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #a5d6a7 0%, #66bb6a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .product-image .placeholder {
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        .product-image .placeholder-icon { font-size: 4rem; margin-bottom: 15px; }
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .section-title {
+            font-size: 1.6rem;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #81c784;
+            display: inline-block;
+        }
+        .intro-text { font-size: 1.05rem; color: #555; margin-bottom: 20px; }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .feature-card {
+            background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+            padding: 25px 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .feature-title { font-weight: 600; color: #33691e; margin-bottom: 8px; font-size: 1.05rem; }
+        .feature-desc { font-size: 0.9rem; color: #689f38; }
+        .video-section { text-align: center; }
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        .video-wrapper iframe, .video-wrapper video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+        .video-placeholder {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .play-btn {
+            width: 80px; height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        .play-btn:hover { transform: scale(1.1); }
+        .play-btn::after {
+            content: '';
+            width: 0; height: 0;
+            border-left: 25px solid #29b6f6;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            margin-left: 5px;
+        }
+        .manual-section { text-align: center; }
+        .manual-btn {
+            display: inline-block;
+            padding: 16px 50px;
+            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+        .manual-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.5);
+        }
+        .manual-hint { margin-top: 15px; font-size: 0.9rem; color: #999; }
+        footer { text-align: center; padding: 30px 20px; color: #999; font-size: 0.9rem; }
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            .hero h1 { font-size: 1.8rem; }
+            .product-image { height: 280px; }
+            .section { padding: 25px 20px; }
+            .section-title { font-size: 1.3rem; }
+            .features { grid-template-columns: 1fr 1fr; gap: 15px; }
+            .feature-card { padding: 20px 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>G05 Hummingbird Feeder</h1>
+            <p class="subtitle">Get Closer to Nature</p>
+            <div class="product-image">
+                <img src="product.jpg" alt="G05 Hummingbird Feeder"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div class="placeholder">
+                    <div class="placeholder-icon">🐦</div>
+                    <div>Product Image<br><small>(Name your image "product.jpg" and place it in the same folder)</small></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Introduction -->
+        <div class="section">
+            <h2 class="section-title">Product Overview</h2>
+            <p class="intro-text">
+                The G05 Hummingbird Feeder is a premium feeding device designed for backyard bird enthusiasts.
+                Made with food-grade materials that are safe and non-toxic, its unique flower-shaped design
+                effectively attracts hummingbirds. Features include ant and bee guards, a large-capacity
+                reservoir to reduce refilling frequency, easy installation, and simple cleaning —
+                the perfect choice for bringing vibrant hummingbirds to your garden.
+            </p>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🌸</div>
+                    <div class="feature-title">Flower Design</div>
+                    <div class="feature-desc">Attracts hummingbirds naturally</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <div class="feature-title">Food-Grade Safe</div>
+                    <div class="feature-desc">Non-toxic & BPA-free</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🐜</div>
+                    <div class="feature-title">Insect Guard</div>
+                    <div class="feature-desc">Ant moat & bee-proof</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💧</div>
+                    <div class="feature-title">Large Capacity</div>
+                    <div class="feature-desc">Less frequent refilling</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Section -->
+        <div class="section video-section">
+            <h2 class="section-title">Product Video</h2>
+            <div class="video-wrapper">
+                <!-- YouTube Video (replace with your video ID) -->
+                <!-- <iframe src="https://www.youtube.com/embed/your-video-id" allowfullscreen></iframe> -->
+
+                <!-- Local Video File -->
+                <!-- <video controls>
+                    <source src="product.mp4" type="video/mp4">
+                    Your browser does not support video playback.
+                </video> -->
+
+                <!-- Placeholder (remove when video is ready) -->
+                <a href="https://www.youtube.com/" target="_blank" class="video-placeholder">
+                    <div class="play-btn"></div>
+                    <div style="font-size: 1.1rem;">Watch Product Video</div>
+                    <div style="font-size: 0.85rem; margin-top: 8px; opacity: 0.8;">(Replace with your video link in the code)</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- User Manual -->
+        <div class="section manual-section">
+            <h2 class="section-title">User Manual</h2>
+            <p class="intro-text" style="margin-bottom: 25px;">
+                Detailed installation guide, usage instructions, and maintenance tips.
+            </p>
+            <a href="manual.pdf" target="_blank" class="manual-btn">
+                📖 View Manual
+            </a>
+            <p class="manual-hint">(Name your PDF "manual.pdf" and place it in the same folder)</p>
+        </div>
+    </div>
+
+    <footer>
+        © 2024 G05 Hummingbird Feeder · All Rights Reserved
+    </footer>
+</body>
+</html>
